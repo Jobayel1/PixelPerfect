@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online background remover tool. Remove image backgrounds automatically with AI technology. Supports JPG, PNG, and WebP formats.">
+    <meta name="keywords" content="background remover, remove bg, transparent background, image editor, free photo editor">
+    <meta name="author" content="BGRemoverPro">
+    <meta property="og:title" content="BGRemoverPro - Free Online Background Remover">
+    <meta property="og:description" content="Remove backgrounds from your images automatically with AI. No registration required.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourwebsite.com/background-remover">
+    <meta property="og:image" content="https://yourwebsite.com/preview-image.jpg">
+    <link rel="canonical" href="https://yourwebsite.com/background-remover">
+    <title>BGRemoverPro - Free Online Background Remover Tool</title>
+    <style>
+        :root {
+            --primary-color: #6c5ce7;
+            --secondary-color: #5649c0;
+            --accent-color: #fd79a8;
+            --light-gray: #f8f9fa;
+            --dark-gray: #2d3436;
+            --medium-gray: #636e72;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            --border-radius: 12px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            background-color: var(--light-gray);
+            color: var(--dark-gray);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1rem 0;
+            box-shadow: var(--shadow);
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        .ad-banner {
+            background-color: white;
+            padding: 1rem;
+            margin: 2rem 0;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+            min-height: 90px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .tool-container {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            text-align: center;
+            font-size: 2.5rem;
+        }
+        
+        .tool-description {
+            text-align: center;
+            color: var(--medium-gray);
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .upload-area {
+            border: 2px dashed var(--medium-gray);
+            border-radius: var(--border-radius);
+            padding: 3rem 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .upload-area:hover {
+            border-color: var(--primary-color);
+            background-color: rgba(108, 92, 231, 0.05);
+        }
+        
+        .upload-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        #file-input {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+        
+        .controls {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-width: 200px;
+        }
+        
+        button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        
+        button:disabled {
+            background-color: var(--medium-gray);
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .download-btn {
+            background-color: var(--accent-color);
+            margin-top: 1rem;
+        }
+        
+        .download-btn:hover {
+            background-color: #fc5d97;
+        }
+        
+        .result-container {
+            display: none;
+            margin-top: 2rem;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .comparison {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .image-box {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .image-preview {
+            max-width: 100%;
+            max-height: 400px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+        
+        .transparent-bg {
+            background-image: linear-gradient(45deg, #ddd 25%, transparent 25%), 
+                              linear-gradient(-45deg, #ddd 25%, transparent 25%), 
+                              linear-gradient(45deg, transparent 75%, #ddd 75%), 
+                              linear-gradient(-45deg, transparent 75%, #ddd 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+        }
+        
+        .image-info {
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--medium-gray);
+        }
+        
+        .spinner {
+            display: none;
+            width: 40px;
+            height: 40px;
+            margin: 1rem auto;
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        footer {
+            background-color: var(--dark-gray);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .comparison {
+                flex-direction: column;
+            }
+        }
+    </style>
+    <!-- Include Remove.bg SDK -->
+    <script src="https://sdk.remove.bg/jquery/latest/removebg-jquery.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">BGRemoverPro</div>
+            <nav>
+                <a href="index.html" style="color: white; text-decoration: none;">Home</a>
+            </nav>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Top Ad Banner -->
+        <div class="ad-banner">
+            <!-- Google AdSense Ad Unit -->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
+                crossorigin="anonymous"></script>
+            <!-- Top Banner Ad -->
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+                data-ad-slot="YOUR_AD_SLOT_ID"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+        
+        <div class="tool-container">
+            <h1>Background Remover</h1>
+            <p class="tool-description">Upload an image to automatically remove the background in seconds. No registration required.</p>
+            
+            <div class="upload-area" id="upload-area">
+                <div class="upload-icon">📁</div>
+                <h2>Drag & Drop Your Image Here</h2>
+                <p>or click to browse files</p>
+                <input type="file" id="file-input" accept="image/*">
+            </div>
+            
+            <div class="controls">
+                <button id="remove-bg-btn" disabled>Remove Background</button>
+                <div class="spinner" id="spinner"></div>
+            </div>
+            
+            <div class="result-container" id="result-container">
+                <div class="comparison">
+                    <div class="image-box">
+                        <h3>Original Image</h3>
+                        <img id="original-img" class="image-preview" src="" alt="Original image">
+                        <div class="image-info">
+                            <span id="original-size">-</span> • 
+                            <span id="original-dimensions">-</span>
+                        </div>
+                    </div>
+                    <div class="image-box">
+                        <h3>Background Removed</h3>
+                        <img id="processed-img" class="image-preview transparent-bg" src="" alt="Processed image">
+                        <div class="image-info">
+                            <span id="processed-size">-</span> • 
+                            <span id="processed-dimensions">-</span>
+                        </div>
+                    </div>
+                </div>
+                <button id="download-btn" class="download-btn">Download PNG</button>
+            </div>
+        </div>
+        
+        <!-- Middle Ad Banner -->
+        <div class="ad-banner">
+            <!-- Google AdSense Ad Unit -->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
+                crossorigin="anonymous"></script>
+            <!-- Middle Rectangle Ad -->
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+                data-ad-slot="YOUR_AD_SLOT_ID"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2023 BGRemoverPro. All rights reserved.</p>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM elements
+            const uploadArea = document.getElementById('upload-area');
+            const fileInput = document.getElementById('file-input');
+            const removeBgBtn = document.getElementById('remove-bg-btn');
+            const resultContainer = document.getElementById('result-container');
+            const originalImg = document.getElementById('original-img');
+            const processedImg = document.getElementById('processed-img');
+            const originalSize = document.getElementById('original-size');
+            const processedSize = document.getElementById('processed-size');
+            const originalDimensions = document.getElementById('original-dimensions');
+            const processedDimensions = document.getElementById('processed-dimensions');
+            const downloadBtn = document.getElementById('download-btn');
+            const spinner = document.getElementById('spinner');
+            
+            // Variables
+            let selectedFile = null;
+            let processedImageBlob = null;
+            
+            // Event listeners
+            uploadArea.addEventListener('click', () => fileInput.click());
+            fileInput.addEventListener('change', handleFileSelect);
+            
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadArea.style.borderColor = 'var(--primary-color)';
+                uploadArea.style.backgroundColor = 'rgba(108, 92, 231, 0.05)';
+            });
+            
+            uploadArea.addEventListener('dragleave', () => {
+                uploadArea.style.borderColor = 'var(--medium-gray)';
+                uploadArea.style.backgroundColor = 'transparent';
+            });
+            
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.style.borderColor = 'var(--medium-gray)';
+                uploadArea.style.backgroundColor = 'transparent';
+                if (e.dataTransfer.files.length) {
+                    fileInput.files = e.dataTransfer.files;
+                    handleFileSelect({ target: fileInput });
+                }
+            });
+            
+            removeBgBtn.addEventListener('click', removeBackground);
+            downloadBtn.addEventListener('click', downloadImage);
+            
+            // Functions
+            function handleFileSelect(event) {
+                const file = event.target.files[0];
+                if (!file) return;
+                
+                if (!file.type.match('image.*')) {
+                    alert('Please select an image file (JPG, PNG, etc.)');
+                    return;
+                }
+                
+                selectedFile = file;
+                removeBgBtn.disabled = false;
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    originalImg.src = e.target.result;
+                    
+                    // Get original dimensions
+                    const img = new Image();
+                    img.onload = function() {
+                        originalDimensions.textContent = `${this.width} × ${this.height}px`;
+                    };
+                    img.src = e.target.result;
+                    
+                    // Update file size display
+                    originalSize.textContent = formatFileSize(file.size);
+                    
+                    // Update upload area
+                    uploadArea.innerHTML = `
+                        <div class="upload-icon">✓</div>
+                        <h2>${file.name}</h2>
+                        <p>${formatFileSize(file.size)} • Ready to process</p>
+                        <input type="file" id="file-input" accept="image/*" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; opacity: 0; cursor: pointer;">
+                    `;
+                    
+                    // Re-attach event listener to the new file input
+                    document.getElementById('file-input').addEventListener('change', handleFileSelect);
+                };
+                reader.readAsDataURL(file);
+            }
+            
+            function removeBackground() {
+                if (!selectedFile) return;
+                
+                removeBgBtn.disabled = true;
+                spinner.style.display = 'block';
+                
+                // In a real implementation, you would use an API like Remove.bg
+                // This is a simulation using canvas to demonstrate the UI flow
+                
+                setTimeout(() => {
+                    const img = new Image();
+                    img.onload = function() {
+                        const canvas = document.createElement('canvas');
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        const ctx = canvas.getContext('2d');
+                        
+                        // Draw original image
+                        ctx.drawImage(img, 0, 0);
+                        
+                        // Simulate background removal (in reality, use an API)
+                        // This just makes the background semi-transparent for demo
+                        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                        const data = imageData.data;
+                        
+                        // Simple "background removal" effect (demo only)
+                        for (let i = 0; i < data.length; i += 4) {
+                            // Make pixels semi-transparent (simulating removal)
+                            if (data[i] > 200 && data[i+1] > 200 && data[i+2] > 200) {
+                                data[i+3] = 100; // Set alpha to semi-transparent
+                            }
+                        }
+                        
+                        ctx.putImageData(imageData, 0, 0);
+                        
+                        // Convert to PNG
+                        canvas.toBlob((blob) => {
+                            spinner.style.display = 'none';
+                            removeBgBtn.disabled = false;
+                            
+                            if (!blob) {
+                                alert('Background removal failed. Please try another image.');
+                                return;
+                            }
+                            
+                            processedImageBlob = blob;
+                            displayResults(blob, img.width, img.height);
+                        }, 'image/png');
+                    };
+                    img.src = URL.createObjectURL(selectedFile);
+                }, 1500);
+            }
+            
+            function displayResults(blob, width, height) {
+                const url = URL.createObjectURL(blob);
+                processedImg.src = url;
+                processedDimensions.textContent = `${width} × ${height}px`;
+                processedSize.textContent = formatFileSize(blob.size);
+                
+                resultContainer.style.display = 'block';
+                resultContainer.scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            function downloadImage() {
+                if (!processedImageBlob) return;
+                
+                const a = document.createElement('a');
+                const url = URL.createObjectURL(processedImageBlob);
+                const filename = selectedFile.name.replace(/\.[^/.]+$/, "") + '-nobg.png';
+                
+                a.href = url;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                
+                setTimeout(() => {
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                }, 100);
+            }
+            
+            function formatFileSize(bytes) {
+                if (bytes < 1024) return bytes + ' Bytes';
+                else if (bytes < 1048576) return (bytes / 1024).toFixed(2) + ' KB';
+                else return (bytes / 1048576).toFixed(2) + ' MB';
+            }
+        });
+    </script>
+    
+    <!-- Structured data for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "BGRemoverPro",
+        "url": "https://yourwebsite.com/background-remover",
+        "description": "Free online tool to automatically remove backgrounds from images using AI technology.",
+        "applicationCategory": "ImageEditingApplication",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "creator": {
+            "@type": "Organization",
+            "name": "BGRemoverPro"
+        }
+    }
+    </script>
+</body>
+</html>
