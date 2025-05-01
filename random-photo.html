@@ -6,20 +6,16 @@
     <meta name="description" content="Free online random photo generator tool. Create AI-generated images of humans, animals, nature, cities, vehicles, and more with custom keywords.">
     <meta name="keywords" content="random photo generator, AI image generator, picture creator, image download, stock photos">
     <meta name="author" content="Random Photo Generator">
-    <meta property="og:title" content="Random Photo Generator - Create Custom AI Images">
-    <meta property="og:description" content="Generate random photos of any category with custom keywords. Download high-quality images for free.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://yourdomain.com">
     <title>Random Photo Generator - Create Custom AI Images</title>
     <style>
         :root {
-            --primary-color: #4a6bff;
-            --secondary-color: #f8f9fa;
-            --accent-color: #ff6b6b;
-            --text-color: #333;
+            --primary: #4a6bff;
+            --secondary: #f8f9fa;
+            --accent: #ff6b6b;
+            --text: #333;
             --light-text: #777;
-            --border-radius: 8px;
-            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --radius: 8px;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         * {
@@ -30,121 +26,48 @@
         }
 
         body {
-            background-color: #f5f7ff;
-            color: var(--text-color);
+            background: #f5f7ff;
+            color: var(--text);
             line-height: 1.6;
         }
 
         header {
-            background-color: white;
-            box-shadow: var(--box-shadow);
-            padding: 1rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            background: white;
+            box-shadow: var(--shadow);
+            padding: 1rem;
+            text-align: center;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 0 1rem;
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            padding: 1rem;
         }
 
         .logo {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: 700;
-            color: var(--primary-color);
+            color: var(--primary);
             text-decoration: none;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-
-        nav ul li {
-            margin-left: 1.5rem;
-        }
-
-        nav ul li a {
-            text-decoration: none;
-            color: var(--text-color);
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        nav ul li a:hover {
-            color: var(--primary-color);
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
         }
 
         .hero {
             text-align: center;
-            padding: 3rem 1rem;
+            padding: 2rem 1rem;
             background: linear-gradient(135deg, #f5f7ff 0%, #e8ecff 100%);
         }
 
         .hero h1 {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             margin-bottom: 1rem;
-            color: var(--primary-color);
-        }
-
-        .hero p {
-            font-size: 1.1rem;
-            color: var(--light-text);
-            max-width: 700px;
-            margin: 0 auto 2rem;
-        }
-
-        .main-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 2rem 1rem;
-        }
-
-        .ad-container {
-            width: 100%;
-            max-width: 728px;
-            margin: 1rem auto;
-            background-color: white;
-            padding: 1rem;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            text-align: center;
-            min-height: 90px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .ad-label {
-            font-size: 0.8rem;
-            color: var(--light-text);
-            margin-bottom: 0.5rem;
+            color: var(--primary);
         }
 
         .tool-container {
-            background-color: white;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
             padding: 2rem;
-            width: 100%;
-            max-width: 900px;
             margin: 1rem 0;
         }
 
@@ -164,58 +87,107 @@
             font-weight: 500;
         }
 
-        .form-group input, .form-group select {
+        .form-control {
             padding: 0.8rem;
             border: 1px solid #ddd;
-            border-radius: var(--border-radius);
+            border-radius: var(--radius);
             font-size: 1rem;
         }
 
-        .form-group input:focus, .form-group select:focus {
+        .form-control:focus {
             outline: none;
-            border-color: var(--primary-color);
+            border-color: var(--primary);
             box-shadow: 0 0 0 2px rgba(74, 107, 255, 0.2);
         }
 
-        .generate-btn {
-            background-color: var(--primary-color);
+        .btn {
+            background: var(--primary);
             color: white;
             border: none;
             padding: 0.8rem 1.5rem;
-            border-radius: var(--border-radius);
+            border-radius: var(--radius);
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
         }
 
-        .generate-btn:hover {
-            background-color: #3a5bef;
+        .btn:hover {
             transform: translateY(-2px);
+            box-shadow: var(--shadow);
         }
 
-        .generate-btn:disabled {
-            background-color: #ccc;
+        .btn-primary {
+            background: var(--primary);
+        }
+
+        .btn-primary:hover {
+            background: #3a5bef;
+        }
+
+        .btn-accent {
+            background: var(--accent);
+        }
+
+        .btn-accent:hover {
+            background: #ff5252;
+        }
+
+        .btn:disabled {
+            background: #ccc;
             cursor: not-allowed;
             transform: none;
+            box-shadow: none;
         }
 
         .loading-spinner {
-            display: none;
             width: 20px;
             height: 20px;
             border: 3px solid rgba(255, 255, 255, 0.3);
             border-radius: 50%;
             border-top-color: white;
             animation: spin 1s ease-in-out infinite;
+            display: none;
         }
 
         @keyframes spin {
             to { transform: rotate(360deg); }
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .category-card {
+            background: var(--secondary);
+            border-radius: var(--radius);
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .category-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        .category-card.selected {
+            border-color: var(--primary);
+            background: rgba(74, 107, 255, 0.1);
+        }
+
+        .category-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
         }
 
         .result-container {
@@ -227,196 +199,35 @@
         .generated-image {
             max-width: 100%;
             max-height: 500px;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
             margin-bottom: 1.5rem;
-        }
-
-        .download-btn {
-            background-color: var(--accent-color);
-            color: white;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: var(--border-radius);
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: inline-flex;
+            background: #f0f0f0;
+            min-height: 300px;
+            display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.5rem;
-        }
-
-        .download-btn:hover {
-            background-color: #ff5252;
-            transform: translateY(-2px);
-        }
-
-        .category-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .category-card {
-            background-color: var(--secondary-color);
-            border-radius: var(--border-radius);
-            padding: 1rem;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: 2px solid transparent;
-        }
-
-        .category-card:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--box-shadow);
-        }
-
-        .category-card.selected {
-            border-color: var(--primary-color);
-            background-color: rgba(74, 107, 255, 0.1);
-        }
-
-        .category-icon {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-        }
-
-        .feature-card {
-            background-color: white;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            padding: 1.5rem;
-            text-align: center;
-            transition: transform 0.3s;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .feature-icon {
-            font-size: 2rem;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-
-        .feature-card h3 {
-            margin-bottom: 0.5rem;
-        }
-
-        .feature-card p {
             color: var(--light-text);
-            font-size: 0.9rem;
+        }
+
+        .error-message {
+            color: var(--accent);
+            margin-top: 1rem;
+            display: none;
         }
 
         footer {
-            background-color: #2c3e50;
+            background: #2c3e50;
             color: white;
             padding: 2rem 1rem;
             text-align: center;
             margin-top: 3rem;
         }
 
-        .footer-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .footer-links a {
-            color: white;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-links a:hover {
-            color: var(--accent-color);
-        }
-
-        .copyright {
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        /* Responsive styles */
         @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            nav ul {
-                margin-top: 1rem;
-            }
-
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .tool-container {
-                padding: 1.5rem;
-            }
-
-            .category-grid {
-                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            }
-        }
-
-        @media (max-width: 576px) {
-            nav ul {
-                flex-direction: column;
-                align-items: center;
-                gap: 0.5rem;
-            }
-
-            nav ul li {
-                margin-left: 0;
-            }
-
-            .mobile-menu-btn {
-                display: block;
-            }
-
-            nav {
-                display: none;
-                width: 100%;
-            }
-
-            nav.active {
-                display: block;
-            }
-
-            .hero {
-                padding: 2rem 1rem;
-            }
-
             .hero h1 {
                 font-size: 1.8rem;
             }
-
-            .tool-container {
-                padding: 1rem;
-            }
-
             .category-grid {
                 grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
             }
@@ -425,185 +236,78 @@
 </head>
 <body>
     <header>
-        <div class="container header-content">
+        <div class="container">
             <a href="#" class="logo">Random Photo Generator</a>
-            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
-            <nav id="mainNav">
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#how-it-works">How It Works</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
         </div>
     </header>
 
     <section class="hero">
         <div class="container">
             <h1>Generate Random Photos Instantly</h1>
-            <p>Create AI-generated images of any category with custom keywords. Perfect for designers, developers, and content creators.</p>
+            <p>Create unique images with AI based on your description</p>
         </div>
     </section>
 
-    <div class="ad-container">
-        <div>
-            <div class="ad-label">Advertisement</div>
-            <!-- Replace with your Google AdSense code -->
-            <div id="ad-top">
-                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
-                    crossorigin="anonymous"></script>
-                <!-- Photo Generator Top Ad -->
-                <ins class="adsbygoogle"
-                    style="display:block"
-                    data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
-                    data-ad-slot="YOUR_AD_SLOT_ID"
-                    data-ad-format="auto"
-                    data-full-width-responsive="true"></ins>
-                <script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
-            </div>
-        </div>
-    </div>
-
-    <main class="main-content">
-        <div class="container">
-            <div class="tool-container">
-                <h2>Create Your Random Photo</h2>
+    <main class="container">
+        <div class="tool-container">
+            <form class="generator-form" id="generatorForm">
+                <div class="form-group">
+                    <label for="keyword">Describe your image</label>
+                    <input type="text" id="keyword" class="form-control" 
+                           placeholder="e.g. 'happy dog', 'sunset beach'" required>
+                </div>
                 
-                <form class="generator-form" id="generatorForm">
-                    <div class="form-group">
-                        <label for="keyword">Describe your image (e.g. "happy dog", "sunset beach")</label>
-                        <input type="text" id="keyword" placeholder="Enter keywords for your image" required>
+                <div class="form-group">
+                    <label>Select Category</label>
+                    <div class="category-grid" id="categoryGrid">
+                        <!-- Categories will be added by JavaScript -->
                     </div>
-                    
-                    <div class="form-group">
-                        <label>Select Category</label>
-                        <div class="category-grid" id="categoryGrid">
-                            <!-- Categories will be added by JavaScript -->
-                        </div>
-                    </div>
-                    
-                    <button type="submit" class="generate-btn" id="generateBtn">
-                        <span id="generateText">Generate Image</span>
-                        <div class="loading-spinner" id="loadingSpinner"></div>
-                    </button>
-                </form>
+                </div>
                 
-                <div class="result-container" id="resultContainer">
-                    <h3>Your Generated Image</h3>
-                    <img id="generatedImage" class="generated-image" src="" alt="Generated image">
-                    <button class="download-btn" id="downloadBtn">
-                        Download Image
-                    </button>
+                <button type="submit" class="btn btn-primary" id="generateBtn">
+                    <span id="generateText">Generate Image</span>
+                    <div class="loading-spinner" id="loadingSpinner"></div>
+                </button>
+                
+                <div class="error-message" id="errorMessage">
+                    Failed to generate image. Please try different keywords.
                 </div>
-            </div>
-
-            <div class="ad-container">
-                <div>
-                    <div class="ad-label">Advertisement</div>
-                    <!-- Replace with your Google AdSense code -->
-                    <div id="ad-middle">
-                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
-                            crossorigin="anonymous"></script>
-                        <!-- Photo Generator Middle Ad -->
-                        <ins class="adsbygoogle"
-                            style="display:block"
-                            data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
-                            data-ad-slot="YOUR_AD_SLOT_ID"
-                            data-ad-format="auto"
-                            data-full-width-responsive="true"></ins>
-                        <script>
-                            (adsbygoogle = window.adsbygoogle || []).push({});
-                        </script>
-                    </div>
+            </form>
+            
+            <div class="result-container" id="resultContainer">
+                <h3>Your Generated Image</h3>
+                <div id="generatedImage" class="generated-image">
+                    Image will appear here
                 </div>
-            </div>
-
-            <section id="features" class="features">
-                <div class="feature-card">
-                    <div class="feature-icon">🎨</div>
-                    <h3>Diverse Categories</h3>
-                    <p>Generate images across multiple categories including people, animals, nature, cities, and more.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🔍</div>
-                    <h3>Custom Keywords</h3>
-                    <p>Use specific keywords to get exactly the type of image you need for your project.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📥</div>
-                    <h3>Instant Download</h3>
-                    <p>Download your generated images in high quality with one click.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">⚡</div>
-                    <h3>Fast Generation</h3>
-                    <p>Get your AI-generated images in seconds with our optimized processing.</p>
-                </div>
-            </section>
-
-            <section id="how-it-works" class="tool-container" style="margin-top: 2rem;">
-                <h2>How It Works</h2>
-                <ol style="margin-top: 1rem; padding-left: 1.5rem;">
-                    <li style="margin-bottom: 0.5rem;"><strong>Enter keywords</strong> - Describe the image you want (e.g. "happy dog in park")</li>
-                    <li style="margin-bottom: 0.5rem;"><strong>Select category</strong> - Choose from animals, people, nature, objects, etc.</li>
-                    <li style="margin-bottom: 0.5rem;"><strong>Generate image</strong> - Our AI will create a unique image based on your input</li>
-                    <li><strong>Download</strong> - Save your image in high quality for personal or commercial use</li>
-                </ol>
-            </section>
-
-            <div class="ad-container">
-                <div>
-                    <div class="ad-label">Advertisement</div>
-                    <!-- Replace with your Google AdSense code -->
-                    <div id="ad-bottom">
-                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
-                            crossorigin="anonymous"></script>
-                        <!-- Photo Generator Bottom Ad -->
-                        <ins class="adsbygoogle"
-                            style="display:block"
-                            data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
-                            data-ad-slot="YOUR_AD_SLOT_ID"
-                            data-ad-format="auto"
-                            data-full-width-responsive="true"></ins>
-                        <script>
-                            (adsbygoogle = window.adsbygoogle || []).push({});
-                        </script>
-                    </div>
-                </div>
+                <button class="btn btn-accent" id="downloadBtn">
+                    Download Image
+                </button>
+                <p id="photoCredit" class="light-text" style="margin-top: 1rem; font-size: 0.9rem;"></p>
             </div>
         </div>
     </main>
 
-    <footer id="contact">
-        <div class="container footer-content">
-            
-            <p class="copyright">© <span id="currentYear"></span> Random Photo Generator. All rights reserved.</p>
+    <footer>
+        <div class="container">
+            <p>© <span id="currentYear"></span> Random Photo Generator | Powered by Unsplash</p>
         </div>
     </footer>
 
     <script>
-        // Mobile menu toggle
-        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
-            const nav = document.getElementById('mainNav');
-            nav.classList.toggle('active');
-        });
-
-        // Set current year in footer
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
-
+        // Unsplash API Configuration
+        const UNSPLASH_ACCESS_KEY = 'zCSpM3At5EU5nYvQqpCgL4ylp8l2wjCUgfGimrufwp8';
+        const UNSPLASH_API_URL = 'https://api.unsplash.com/photos/random';
+        
         // Image categories data
         const categories = [
-            { id: 'people', name: 'People', icon: '👨', keywords: ['portrait', 'face', 'person', 'people'] },
-            { id: 'animals', name: 'Animals', icon: '🐶', keywords: ['dog', 'cat', 'wildlife', 'pet'] },
-            { id: 'nature', name: 'Nature', icon: '🌲', keywords: ['landscape', 'forest', 'mountain', 'sunset'] },
-            { id: 'cities', name: 'Cities', icon: '🏙️', keywords: ['urban', 'skyline', 'street', 'architecture'] },
-            { id: 'food', name: 'Food', icon: '🍕', keywords: ['meal', 'restaurant', 'fruit', 'vegetables'] },
-            { id: 'objects', name: 'Objects', icon: '🖥️', keywords: ['device', 'furniture', 'tool', 'item'] },
-            { id: 'transport', name: 'Transport', icon: '🚗', keywords: ['car', 'bike', 'plane', 'vehicle'] },
-            { id: 'art', name: 'Art', icon: '🎨', keywords: ['painting', 'sculpture', 'abstract', 'creative'] }
+            { id: 'people', name: 'People', icon: '👨', keywords: ['portrait', 'face', 'person'] },
+            { id: 'animals', name: 'Animals', icon: '🐶', keywords: ['dog', 'cat', 'wildlife'] },
+            { id: 'nature', name: 'Nature', icon: '🌲', keywords: ['landscape', 'forest', 'mountain'] },
+            { id: 'cities', name: 'Cities', icon: '🏙️', keywords: ['urban', 'skyline', 'street'] },
+            { id: 'food', name: 'Food', icon: '🍕', keywords: ['meal', 'restaurant', 'fruit'] },
+            { id: 'objects', name: 'Objects', icon: '🖥️', keywords: ['device', 'furniture', 'tool'] },
+            { id: 'transport', name: 'Transport', icon: '🚗', keywords: ['car', 'bike', 'plane'] },
+            { id: 'art', name: 'Art', icon: '🎨', keywords: ['painting', 'sculpture', 'abstract'] }
         ];
 
         // DOM elements
@@ -616,9 +320,26 @@
         const generatedImage = document.getElementById('generatedImage');
         const downloadBtn = document.getElementById('downloadBtn');
         const keywordInput = document.getElementById('keyword');
+        const errorMessage = document.getElementById('errorMessage');
+        const photoCredit = document.getElementById('photoCredit');
 
-        // Selected category
+        // Selected category and current image data
         let selectedCategory = null;
+        let currentImageData = null;
+
+        // Initialize the app
+        function init() {
+            // Set current year
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+            
+            // Initialize categories
+            initCategories();
+            
+            // Select first category by default
+            if (categories.length > 0) {
+                selectCategory(categories[0].id);
+            }
+        }
 
         // Initialize category grid
         function initCategories() {
@@ -649,99 +370,118 @@
         }
 
         // Form submission
-        generatorForm.addEventListener('submit', function(e) {
+        generatorForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             
             if (!selectedCategory) {
-                alert('Please select a category');
+                showError('Please select a category');
                 return;
             }
             
             const keyword = keywordInput.value.trim();
             if (!keyword) {
-                alert('Please enter some keywords');
+                showError('Please enter some keywords');
                 return;
             }
             
-            generateImage(keyword, selectedCategory);
+            await generateImage(keyword, selectedCategory);
         });
 
-        // Generate image (simulated)
-        function generateImage(keyword, category) {
-            // Show loading state
-            generateBtn.disabled = true;
-            loadingSpinner.style.display = 'block';
-            generateText.textContent = 'Generating...';
-            
-            // Hide previous result
-            resultContainer.style.display = 'none';
-            
-            // In a real implementation, this would call an AI image generation API
-            // For demo purposes, we'll use placeholder images based on category
-            setTimeout(() => {
+        // Generate image using Unsplash API
+        async function generateImage(keyword, category) {
+            try {
+                // Show loading state
+                startLoading();
+                hideError();
+                hideResult();
+                
+                // Get category data
                 const categoryData = categories.find(c => c.id === category);
                 const randomKeyword = categoryData.keywords[Math.floor(Math.random() * categoryData.keywords.length)];
                 
-                // Use placeholder images from Unsplash Source
-                const width = 800;
-                const height = 600;
-                const imageUrl = `https://source.unsplash.com/random/${width}x${height}/?${keyword},${randomKeyword},${category}`;
+                // Combine user input with category keywords
+                const query = `${keyword} ${randomKeyword}`;
                 
-                // Set image source with cache busting
-                generatedImage.src = `${imageUrl}&${Date.now()}`;
+                // Fetch random photo from Unsplash
+                const response = await fetch(
+                    `${UNSPLASH_API_URL}?query=${encodeURIComponent(query)}&client_id=${UNSPLASH_ACCESS_KEY}`
+                );
                 
-                // Wait for image to load
-                generatedImage.onload = function() {
-                    // Show result
-                    resultContainer.style.display = 'block';
-                    
-                    // Reset button state
-                    generateBtn.disabled = false;
-                    loadingSpinner.style.display = 'none';
-                    generateText.textContent = 'Generate Image';
-                };
+                if (!response.ok) {
+                    throw new Error(`Unsplash API error: ${response.status}`);
+                }
                 
-                generatedImage.onerror = function() {
-                    alert('Failed to generate image. Please try different keywords.');
-                    generateBtn.disabled = false;
-                    loadingSpinner.style.display = 'none';
-                    generateText.textContent = 'Generate Image';
-                };
-            }, 1500);
+                const data = await response.json();
+                currentImageData = data;
+                
+                // Display the image
+                generatedImage.innerHTML = '';
+                const img = document.createElement('img');
+                img.src = data.urls.regular;
+                img.alt = data.alt_description || `Generated image: ${keyword}`;
+                img.style.maxWidth = '100%';
+                img.style.maxHeight = '500px';
+                img.style.borderRadius = '8px';
+                generatedImage.appendChild(img);
+                
+                // Show photo credit
+                photoCredit.innerHTML = `Photo by <a href="${data.user.links.html}?utm_source=Random Photo Generator&utm_medium=referral" target="_blank">${data.user.name}</a> on <a href="https://unsplash.com/?utm_source=Random Photo Generator&utm_medium=referral" target="_blank">Unsplash</a>`;
+                
+                showResult();
+            } catch (error) {
+                console.error('Image generation failed:', error);
+                showError('Failed to generate image. Please try different keywords.');
+            } finally {
+                stopLoading();
+            }
         }
 
         // Download image
         downloadBtn.addEventListener('click', function() {
-            if (!generatedImage.src) return;
+            if (!currentImageData) return;
             
             const link = document.createElement('a');
-            link.href = generatedImage.src;
+            link.href = currentImageData.links.download;
             link.download = `generated-${selectedCategory}-${Date.now()}.jpg`;
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
         });
 
-        // Initialize the app
-        initCategories();
-        
-        // Select first category by default
-        selectCategory(categories[0].id);
+        // Loading state functions
+        function startLoading() {
+            generateBtn.disabled = true;
+            loadingSpinner.style.display = 'block';
+            generateText.textContent = 'Generating...';
+        }
 
-        // Lazy load ads when they come into view
-        const ads = document.querySelectorAll('.ad-container');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    // In a real implementation, you would load the ad here
-                    console.log('Ad in view:', entry.target.id);
-                }
-            });
-        }, { threshold: 0.1 });
+        function stopLoading() {
+            generateBtn.disabled = false;
+            loadingSpinner.style.display = 'none';
+            generateText.textContent = 'Generate Image';
+        }
 
-        ads.forEach(ad => {
-            observer.observe(ad);
-        });
+        // Result visibility functions
+        function showResult() {
+            resultContainer.style.display = 'block';
+        }
+
+        function hideResult() {
+            resultContainer.style.display = 'none';
+        }
+
+        // Error handling functions
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+        }
+
+        function hideError() {
+            errorMessage.style.display = 'none';
+        }
+
+        // Initialize the application
+        init();
     </script>
 </body>
-</html>
+</html>                   
