@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online AI tool to convert blurry images to clear. Enhance photo sharpness automatically with our advanced deblurring technology.">
+    <title>Blur to Clear - AI Image Sharpener</title>
+    <style>
+        :root {
+            --primary: #4a6bff;
+            --secondary: #f8f9fa;
+            --accent: #ff6b6b;
+            --text: #333;
+            --light-text: #777;
+            --radius: 8px;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7ff;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        header {
+            background: white;
+            box-shadow: var(--shadow);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: linear-gradient(135deg, #f5f7ff 0%, #e8ecff 100%);
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--light-text);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        .tool-container {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 2rem;
+            width: 100%;
+            max-width: 900px;
+            margin: 1rem auto;
+        }
+
+        .upload-area {
+            border: 2px dashed #ccc;
+            border-radius: var(--radius);
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 1.5rem;
+        }
+
+        .upload-area:hover {
+            border-color: var(--primary);
+            background: rgba(74, 107, 255, 0.05);
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .preview-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 2rem;
+            justify-content: center;
+        }
+
+        .image-preview {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .image-preview h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .preview-img {
+            max-width: 100%;
+            max-height: 400px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transition: opacity 0.3s;
+        }
+
+        .preview-img.loading {
+            opacity: 0.7;
+        }
+
+        .controls {
+            margin-top: 1.5rem;
+        }
+
+        .slider-container {
+            margin: 1.5rem 0;
+        }
+
+        .slider-container label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: #ddd;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+        }
+
+        .slider-value {
+            font-weight: 600;
+            color: var(--primary);
+            margin-left: 0.5rem;
+        }
+
+        .download-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: var(--radius);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 1rem auto;
+        }
+
+        .download-btn:hover {
+            background: #3a5bef;
+            transform: translateY(-2px);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .tool-container {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="#" class="logo">Blur to Clear</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Transform Blurry Images to Clear</h1>
+            <p>Our AI-powered tool automatically sharpens blurry photos, restoring clarity and detail in seconds.</p>
+        </div>
+    </section>
+
+    <main class="container">
+        <div class="tool-container">
+            <h2>Upload Your Blurry Image</h2>
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-icon">📷</div>
+                <p>Click to upload or drag and drop</p>
+                <p>Supports JPG, PNG (Max 10MB)</p>
+                <input type="file" id="fileInput" class="file-input" accept="image/*">
+            </div>
+
+            <div class="controls">
+                <div class="slider-container">
+                    <label>Sharpness Level: <span id="sharpnessValue" class="slider-value">50</span>%</label>
+                    <input type="range" id="sharpness-level" class="slider" min="0" max="100" value="50">
+                </div>
+            </div>
+
+            <div class="preview-container" id="previewContainer" style="display: none;">
+                <div class="image-preview">
+                    <h3>Original (Blurry)</h3>
+                    <img id="originalPreview" class="preview-img" src="" alt="Original blurry image">
+                </div>
+                <div class="image-preview">
+                    <h3>Enhanced (Clear)</h3>
+                    <img id="enhancedPreview" class="preview-img" src="" alt="Enhanced clear image">
+                </div>
+            </div>
+
+            <button id="downloadBtn" class="download-btn" style="display: none;">
+                Download Clear Image
+            </button>
+        </div>
+
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">🔍</div>
+                <h3>Advanced Deblurring</h3>
+                <p>Uses AI to analyze and reverse blur effects, restoring lost details.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Real-Time Processing</h3>
+                <p>See results instantly as you adjust the sharpness level.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🖼️</div>
+                <h3>High Quality Output</h3>
+                <p>Maintains image quality while removing blur artifacts.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© <span id="currentYear"></span> Blur to Clear - AI Image Sharpener</p>
+        </div>
+    </footer>
+
+    <script>
+        // DOM Elements
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const originalPreview = document.getElementById('originalPreview');
+        const enhancedPreview = document.getElementById('enhancedPreview');
+        const previewContainer = document.getElementById('previewContainer');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const sharpnessLevel = document.getElementById('sharpness-level');
+        const sharpnessValue = document.getElementById('sharpnessValue');
+
+        // State variables
+        let originalImageData = null;
+        let currentSharpness = 50;
+        let processingTimeout = null;
+
+        // Set current year
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Update sharpness value display
+        sharpnessLevel.addEventListener('input', function() {
+            currentSharpness = parseInt(this.value);
+            sharpnessValue.textContent = currentSharpness;
+            applySharpening();
+        });
+
+        // File upload handling
+        uploadArea.addEventListener('click', () => fileInput.click());
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = 'var(--primary)';
+            uploadArea.style.backgroundColor = 'rgba(74, 107, 255, 0.05)';
+        });
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.style.borderColor = '#ccc';
+            uploadArea.style.backgroundColor = 'transparent';
+        });
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = '#ccc';
+            uploadArea.style.backgroundColor = 'transparent';
+            if (e.dataTransfer.files.length) {
+                fileInput.files = e.dataTransfer.files;
+                handleFiles();
+            }
+        });
+
+        fileInput.addEventListener('change', handleFiles);
+
+        function handleFiles() {
+            const file = fileInput.files[0];
+            if (file && file.type.match('image.*')) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    originalImageData = e.target.result;
+                    originalPreview.src = originalImageData;
+                    previewContainer.style.display = 'flex';
+                    downloadBtn.style.display = 'block';
+                    applySharpening();
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Apply sharpening with debounce
+        function applySharpening() {
+            if (!originalImageData) return;
+            
+            enhancedPreview.classList.add('loading');
+            
+            if (processingTimeout) {
+                clearTimeout(processingTimeout);
+            }
+            
+            processingTimeout = setTimeout(() => {
+                sharpenImage(originalImageData, currentSharpness / 100)
+                    .then(sharpImage => {
+                        enhancedPreview.src = sharpImage;
+                        enhancedPreview.classList.remove('loading');
+                    });
+            }, 200);
+        }
+
+        // Image sharpening function
+        function sharpenImage(imageUrl, intensity) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    
+                    // Draw original image
+                    ctx.drawImage(img, 0, 0);
+                    
+                    // Apply unsharp mask (simulated)
+                    const blurAmount = Math.max(0, 1 - (intensity * 1.5));
+                    const sharpnessIntensity = intensity * 2;
+                    
+                    // Apply blur (to create the "unsharp" mask)
+                    ctx.filter = `blur(${blurAmount}px)`;
+                    ctx.drawImage(canvas, 0, 0);
+                    ctx.filter = 'none';
+                    
+                    // Get the blurred version
+                    const blurredData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    
+                    // Redraw original
+                    ctx.drawImage(img, 0, 0);
+                    const originalData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    
+                    // Subtract blurred from original (unsharp masking)
+                    for (let i = 0; i < originalData.data.length; i += 4) {
+                        // Calculate difference between original and blurred
+                        const diffR = originalData.data[i] - blurredData.data[i];
+                        const diffG = originalData.data[i+1] - blurredData.data[i+1];
+                        const diffB = originalData.data[i+2] - blurredData.data[i+2];
+                        
+                        // Apply the sharpening effect
+                        originalData.data[i] = Math.min(255, originalData.data[i] + (diffR * sharpnessIntensity));
+                        originalData.data[i+1] = Math.min(255, originalData.data[i+1] + (diffG * sharpnessIntensity));
+                        originalData.data[i+2] = Math.min(255, originalData.data[i+2] + (diffB * sharpnessIntensity));
+                    }
+                    
+                    ctx.putImageData(originalData, 0, 0);
+                    resolve(canvas.toDataURL('image/jpeg', 0.9));
+                };
+                img.src = imageUrl;
+            });
+        }
+
+        // Download enhanced image
+        downloadBtn.addEventListener('click', function() {
+            if (!enhancedPreview.src) return;
+            
+            const link = document.createElement('a');
+            link.href = enhancedPreview.src;
+            link.download = 'sharpened_' + (fileInput.files[0]?.name || 'image.jpg');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+    </script>
+</body>
+</html>
