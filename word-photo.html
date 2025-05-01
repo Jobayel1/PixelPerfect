@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Convert your words into A4-size printable photo with custom margins and font styles." />
+  <meta name="keywords" content="word to photo, text to image, A4 text image, text image tool, convert text to image" />
+  <meta name="author" content="PixelPerfect" />
+  <title>A4 Word to Photo Tool</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding: 20px;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+    }
+    textarea {
+      width: 100%;
+      height: 140px;
+      font-size: 16px;
+      padding: 10px;
+      margin-bottom: 15px;
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .controls > div {
+      flex: 1 1 200px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    select, input[type="number"], input[type="color"] {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    canvas {
+      display: block;
+      margin: 30px auto;
+      background: white;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 6px;
+      margin-right: 10px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Word to A4 Photo Generator</h1>
+    <textarea id="textInput" placeholder="Enter your text here..."></textarea>
+
+    <div class="controls">
+      <div>
+        <label for="fontSelect">Font Style</label>
+        <select id="fontSelect">
+          <option value="Arial">Arial</option>
+          <option value="Georgia">Georgia</option>
+          <option value="Courier New">Courier New</option>
+          <option value="Times New Roman">Times New Roman</option>
+          <option value="Verdana">Verdana</option>
+          <option value="Comic Sans MS">Comic Sans MS</option>
+          <option value="Lucida Console">Lucida Console</option>
+          <option value="Impact">Impact</option>
+        </select>
+      </div>
+      <div>
+        <label for="fontSize">Font Size (px)</label>
+        <input type="number" id="fontSize" value="24" min="10" max="100" />
+      </div>
+      <div>
+        <label for="textColor">Text Color</label>
+        <input type="color" id="textColor" value="#000000" />
+      </div>
+    </div>
+
+    <button onclick="generateImage()">Generate Image</button>
+    <button onclick="downloadImage()">Download Image</button>
+
+    <!-- A4 Size Canvas -->
+    <canvas id="canvas" width="794" height="1123"></canvas>
+  </div>
+
+  <script>
+    function generateImage() {
+      const canvas = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d');
+
+      const text = document.getElementById('textInput').value;
+      const font = document.getElementById('fontSelect').value;
+      const fontSize = parseInt(document.getElementById('fontSize').value);
+      const textColor = document.getElementById('textColor').value;
+
+      const margin = 50;
+      const maxWidth = canvas.width - margin * 2;
+
+      // Clear and set white background
+      ctx.fillStyle = "#FFFFFF";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Set text properties
+      ctx.fillStyle = textColor;
+      ctx.font = `${fontSize}px ${font}`;
+      ctx.textBaseline = 'top';
+
+      wrapText(ctx, text, margin, margin, maxWidth, fontSize + 10);
+    }
+
+    function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+      const words = text.split(' ');
+      let line = '';
+
+      for (let i = 0; i < words.length; i++) {
+        const testLine = line + words[i] + ' ';
+        const testWidth = ctx.measureText(testLine).width;
+
+        if (testWidth > maxWidth && i > 0) {
+          ctx.fillText(line, x, y);
+          line = words[i] + ' ';
+          y += lineHeight;
+        } else {
+          line = testLine;
+        }
+      }
+      ctx.fillText(line, x, y);
+    }
+
+    function downloadImage() {
+      const canvas = document.getElementById('canvas');
+      const link = document.createElement('a');
+      link.download = 'a4-text-image.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }
+  </script>
+</body>
+</html>
